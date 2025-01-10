@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='my_carbon_calculator',
+    name='CO2.py',
     version='0.1.0',
     packages=find_packages(),
     install_requires=[
         'requests', 
     ],
-    author='Your Name',
-    author_email='your.email@example.com',
+    author='Ines',
+    author_email='ines@zenkri.com',
     description='A library for calculating carbon emissions and checking green domains.',
     url='https://github.com/ineszenkri/CO2.py',  
     classifiers=[

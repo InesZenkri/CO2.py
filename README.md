@@ -1,6 +1,6 @@
 # Carbon Calculator
 
-A Python library for calculating carbon emissions from internet data transfer and checking green hosting status.
+CO2.py is a Python library for calculating carbon emissions from internet data transfer and checking green hosting status.
 
 ## Features
 
@@ -8,22 +8,13 @@ A Python library for calculating carbon emissions from internet data transfer an
 - Get grid intensity data by country
 - Check domains against Green Web Foundation's dataset
 
-## Usage
 
+## Install the Library Locally:
+Navigate to the root directory of your project (where setup.py is located) and run:
 ```python
-from carbon_calculator import DataTransferEmissions, GreenDomains
-
-# Calculate emissions
-calc = DataTransferEmissions()
-result = calc.calculate_emissions(
-    bytes_transferred=1024 * 1024 * 1024,  # 1GB
-    country_code='US'
-)
-
-# Check if a domain is green
-domains = GreenDomains()
-green_status = domains.check_domain('example.com')
+pip install .
 ```
+This will install your package locally, allowing you to import it in other projects or scripts.
 
 ## Data Sources
 

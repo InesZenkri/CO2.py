@@ -1,0 +1,19 @@
+Metadata-Version: 2.2
+Name: my_carbon_calculator
+Version: 0.1.0
+Summary: A library for calculating carbon emissions and checking green domains.
+Home-page: https://github.com/ineszenkri/CO2.py
+Author: Your Name
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Requires-Dist: requests
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

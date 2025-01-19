@@ -6,8 +6,8 @@ from urllib import request
 from typing import Optional, Dict, Union
 from carbon_calculator.grid_intensity import GridIntensity
 class DataTransferEmissions:
-    # Based on: https://www.nature.com/articles/s41598-020-76125-y
-    ENERGY_PER_GB = 0.06  # kWh/GB
+    # Based on: https://www.academia.edu/15190649/The_Energy_Intensity_of_the_Internet_Edge_and_Core_Networks
+    ENERGY_PER_GB = 0.06  
 
     def __init__(self):
         self.grid_intensity = GridIntensity()
@@ -16,17 +16,7 @@ class DataTransferEmissions:
         self,
         bytes_transferred: int,
         country_code: str = 'WORLD'
-    ) -> Dict[str, Union[float, str]]:
-        """
-        Calculate CO2 emissions from data transfer.
-        
-        Args:
-            bytes_transferred: Number of bytes transferred
-            country_code: ISO 3166-1 alpha-2 country code
-            
-        Returns:
-            Dictionary containing emissions data
-        """
+    )
         gb_transferred = bytes_transferred / (1024 ** 3)  
         energy_consumed = gb_transferred * self.ENERGY_PER_GB
         

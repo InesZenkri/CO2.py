@@ -9,15 +9,6 @@ class GreenDomains:
     API_URL = "https://api.thegreenwebfoundation.org/api/v3/greencheck/"
     
     def check_domain(self, domain: str) -> Dict:
-        """
-        Check if a domain is green according to Green Web Foundation.
-        
-        Args:
-            domain: Domain name to check
-            
-        Returns:
-            Dictionary containing green status and hosting provider info
-        """
         try:
             url = f"{self.API_URL}{parse.quote(domain)}"
             with request.urlopen(url) as response:

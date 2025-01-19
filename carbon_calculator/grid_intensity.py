@@ -30,14 +30,6 @@ class GridIntensity:
         return processed
     
     def get_intensity(self, country_code: str = 'WORLD') -> float:
-        """
-        Get grid intensity for a country in gCO2/kWh.
-        
-        Args:
-            country_code: ISO 3166-1 alpha-2 country code
-            
-        Returns:
-            Grid intensity in gCO2/kWh
-        """
+       
         self._load_intensity_data()
         return self._intensity_data.get(country_code.upper(), self._intensity_data['WORLD'])

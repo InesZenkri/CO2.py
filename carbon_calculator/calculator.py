@@ -1,22 +1,26 @@
 """
 Calculate carbon emissions from data transfer.
 """
-import json
-from urllib import request
-from typing import Optional, Dict, Union
+from typing import Optional
+
 from carbon_calculator.grid_intensity import GridIntensity
+
+
 class DataTransferEmissions:
     # Based on: https://www.academia.edu/15190649/The_Energy_Intensity_of_the_Internet_Edge_and_Core_Networks
     ENERGY_PER_GB = 0.06  
 
-    def __init__(self):
-        self.grid_intensity = GridIntensity()
+    def __init__(self, grid_intensity: Optional[GridIntensity] = None):
+        self.grid_intensity = grid_intensity or GridIntensity()
 
     def calculate_emissions(
         self,
         bytes_transferred: int,
         country_code: str = 'WORLD'
-    )
+    ):
+        if bytes_transferred < 0:
+            raise ValueError("bytes_transferred must be non-negative")
+
         gb_transferred = bytes_transferred / (1024 ** 3)  
         energy_consumed = gb_transferred * self.ENERGY_PER_GB
         

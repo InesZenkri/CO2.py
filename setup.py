@@ -4,9 +4,7 @@ setup(
     name='CO2.py',
     version='0.1.0',
     packages=find_packages(),
-    install_requires=[
-        'requests', 
-    ],
+    install_requires=[],
     author='Ines',
     author_email='ines@zenkri.com',
     description='A library for calculating carbon emissions and checking green domains.',

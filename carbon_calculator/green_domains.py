@@ -1,14 +1,16 @@
 """
-Query Green Web Foundation's Green Domains dataset.
+Query the Green Web Foundation's Greencheck API.
+
+API: https://api.thegreenwebfoundation.org/api/v3/greencheck/<domain>
 """
 import json
-from urllib import request, parse
 from typing import Dict
+from urllib import parse, request
 
 
 class GreenDomains:
     API_URL = "https://api.thegreenwebfoundation.org/api/v3/greencheck/"
-    
+
     def check_domain(self, domain: str) -> Dict:
         if not domain:
             raise ValueError("domain is required")
@@ -17,15 +19,13 @@ class GreenDomains:
             url = f"{self.API_URL}{parse.quote(domain)}"
             with request.urlopen(url, timeout=10) as response:
                 data = json.loads(response.read())
-                return {
-                    'domain': domain,
-                    'is_green': data.get('green', False),
-                    'hosted_by': data.get('hostedby', 'Unknown'),
-                    'hosted_by_website': data.get('hostedbywebsite', None)
-                }
-        except Exception as e:
+            # The API returns hosted_by / hosted_by_website. The old
+            # hostedby / hostedbywebsite keys are still read as a fallback.
             return {
-                'domain': domain,
-                'is_green': None,
-                'error': str(e)
+                "domain": domain,
+                "is_green": bool(data.get("green", False)),
+                "hosted_by": data.get("hosted_by") or data.get("hostedby") or "Unknown",
+                "hosted_by_website": data.get("hosted_by_website") or data.get("hostedbywebsite"),
             }
+        except Exception as e:
+            return {"domain": domain, "is_green": None, "error": str(e)}

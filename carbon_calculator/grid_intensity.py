@@ -2,14 +2,20 @@
 Grid intensity data by country.
 """
 import json
+import logging
 import os
 from urllib import parse
 from urllib import request
-from typing import Dict, List
+from typing import Dict, List, Tuple
+
+logger = logging.getLogger(__name__)
 
 
 class GridIntensity:
-    WORLD_AVERAGE_INTENSITY = 475.0
+    # Global average used by the Sustainable Web Design Model v4, taken from
+    # Ember's "World" carbon intensity series:
+    # https://sustainablewebdesign.org/estimating-digital-emissions/
+    WORLD_AVERAGE_INTENSITY = 494.0
     API_URL = "https://api.ember-energy.org/v1/carbon-intensity/yearly"
     ISO2_TO_ISO3 = {
         "BR": "BRA",
@@ -48,8 +54,8 @@ class GridIntensity:
                     if processed:
                         processed['WORLD'] = self.WORLD_AVERAGE_INTENSITY
                         self._intensity_data = processed
-            except Exception:
-                pass
+            except Exception as exc:
+                logger.warning("Ember API request failed, using world average: %s", exc)
     
     def _process_ember_data(self, data: Dict) -> Dict[str, float]:
         """Process Ember data into country-specific grid intensities."""
@@ -96,3 +102,11 @@ class GridIntensity:
             normalized_country_code,
             self._intensity_data['WORLD'],
         )
+
+    def get_intensity_info(self, country_code: str = 'WORLD') -> Tuple[float, str]:
+        """Return (gCO2e/kWh, source) where source is 'ember' or 'world_average'."""
+        self._load_intensity_data()
+        code = self._normalize_country_code(country_code)
+        if code != 'WORLD' and code in self._intensity_data:
+            return self._intensity_data[code], 'ember'
+        return self._intensity_data['WORLD'], 'world_average'

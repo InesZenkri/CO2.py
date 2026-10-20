@@ -6,5 +6,5 @@ from .calculator import DataTransferEmissions
 from .grid_intensity import GridIntensity
 from .green_domains import GreenDomains
 
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __all__ = ['DataTransferEmissions', 'GridIntensity', 'GreenDomains']

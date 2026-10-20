@@ -1,20 +1,16 @@
-from carbon_calculator import DataTransferEmissions, GreenDomains
 import json
 
+from carbon_calculator import DataTransferEmissions, GreenDomains
 
-# Initialize calculators
 emissions_calc = DataTransferEmissions()
 green_domains = GreenDomains()
 
-# Calculate emissions for 1GB of data transfer
-result = emissions_calc.calculate_emissions(
-    bytes_transferred=1024 * 1024 * 1024,  
-    country_code='US'
-)
-print("Carbon Emissions Calculation:")
+# Emissions for 1 GB (10^9 bytes) of data transfer, world-average grid.
+result = emissions_calc.calculate_emissions(bytes_transferred=1_000_000_000)
+print("Carbon emissions estimate:")
 print(json.dumps(result, indent=2))
 
-# Check if a domain is green
-domain_result = green_domains.check_domain('google.com')
-print("\nGreen Domain Check:")
+# Check whether a domain is hosted green.
+domain_result = green_domains.check_domain("google.com")
+print("\nGreen domain check:")
 print(json.dumps(domain_result, indent=2))
